@@ -1,11 +1,10 @@
 name: gh-action-assert-latest
 description: GitHub Action to fail if the current commit is not the latest for the branch
 author: Harvey Rogers
-# inputs:
-#   myInput:
-#     description: input description here
-#     default: default value if applicable
-#     required: false
+inputs:
+  github-token:
+    description: GitHub access token
+    required: true
 runs:
   using: node12
   main: dist/index.js
