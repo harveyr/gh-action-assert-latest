@@ -2,6 +2,9 @@ import * as core from '@actions/core'
 import * as kit from '@harveyr/github-actions-kit'
 import * as github from '@actions/github'
 
+/**
+ * Return the name of the current branch.
+ */
 function getCurrentBranch(): string {
   const context = github.context
   const { eventName, payload } = context
