@@ -1,11 +1,11 @@
-name: Your name here
-description: Your description here
-author: Your name or organization here
-inputs:
-  myInput:
-    description: input description here
-    default: default value if applicable
-    required: false
+name: gh-action-assert-latest
+description: GitHub Action to fail if the current commit is not the latest for the branch
+author: Harvey Rogers
+# inputs:
+#   myInput:
+#     description: input description here
+#     default: default value if applicable
+#     required: false
 runs:
   using: node12
   main: dist/index.js
