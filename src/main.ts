@@ -6,6 +6,12 @@ async function run(): Promise<void> {
   const context = github.context
   const { owner, repo } = context.repo
   const currentBranch = context.payload.ref as string
+  if (!currentBranch) {
+    throw new Error(
+      `Branch not found in payload: ${JSON.stringify(context.payload)}`,
+    )
+  }
+
   const currentSha: string = kit.getSha()
 
   core.info(`Fetching commits for ${owner}/${repo}:${currentBranch}`)
