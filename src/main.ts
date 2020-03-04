@@ -2,10 +2,35 @@ import * as core from '@actions/core'
 import * as kit from '@harveyr/github-actions-kit'
 import * as github from '@actions/github'
 
+/**
+ * Return the name of the current branch.
+ */
+function getCurrentBranch(): string {
+  const context = github.context
+  const { eventName, payload } = context
+
+  let result = ''
+
+  if (eventName === 'push') {
+    result = payload.ref
+  } else if (eventName === 'pull_request' && payload.pull_request) {
+    result = payload.pull_request.head.ref
+  }
+  if (!result) {
+    throw new Error(
+      `I don't know how to find the current branch in payload: ${JSON.stringify(
+        context.payload,
+      )}`,
+    )
+  }
+  return result
+}
+
 async function run(): Promise<void> {
   const context = github.context
   const { owner, repo } = context.repo
-  const currentBranch = context.payload.ref as string
+  const currentBranch = getCurrentBranch()
+
   const currentSha: string = kit.getSha()
 
   core.info(`Fetching commits for ${owner}/${repo}:${currentBranch}`)
