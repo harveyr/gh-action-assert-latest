@@ -1,8 +1,8 @@
 {
-  "name": "replace-me",
+  "name": "gh-action-assert-latest",
   "version": "0.0.0",
   "private": true,
-  "description": "FIXME: REPLACE ME",
+  "description": "See action.yml",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -11,13 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fixme:replace.git"
+    "url": "git+https://github.com/harveyr/gh-action-assert-latest.git"
   },
   "author": "Harvey Rogers (harveyr@gmail.com)",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.2",
-    "@harveyr/github-actions-kit": "0.0.10"
+    "@actions/github": "^2.1.1",
+    "@harveyr/github-actions-kit": "0.0.11"
   },
   "devDependencies": {
     "@types/jest": "^25.1.3",

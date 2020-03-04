@@ -1,3 +1,4 @@
-A modified version of https://github.com/actions/typescript-action
+# gh-action-assert-latest
 
-FIXME: Update this readme when you instantiate this repo template.
+GitHub Action that throws an error and stops the build if the commit is no
+longer the latest commit on the branch.
