@@ -6,7 +6,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Node deps cache
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+
     - run: npm ci
+      if: steps.cache.outputs.cache-hit != 'true'
 
     - run: npm run build
 
@@ -26,6 +34,8 @@ jobs:
     - run: npm run dist
 
     - uses: ./
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - uses: harveyr/gh-action-publish@releases/v0
       with:
