@@ -4,9 +4,9 @@ import * as github from '@actions/github'
 
 async function run(): Promise<void> {
   const context = github.context
-  const currentSha = await kit.getSha()
-  const currentBranch = github.context.payload.ref as string
   const { owner, repo } = context.repo
+  const currentBranch = context.payload.ref as string
+  const currentSha: string = kit.getSha()
 
   core.info(`Fetching commits for ${owner}/${repo}:${currentBranch}`)
 
@@ -27,7 +27,10 @@ async function run(): Promise<void> {
 
   if (currentSha !== latestSha) {
     core.setFailed(
-      `Current SHA ${currentSha.slice(0, 7)} is behind ${latestSha.slice(0.7)}`,
+      `Current SHA ${currentSha.slice(0, 7)} is behind ${latestSha.slice(
+        0,
+        7,
+      )}`,
     )
   } else {
     core.info(`Current SHA ${currentSha.slice(0, 7)} is the latest commit.`)
