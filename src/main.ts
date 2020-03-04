@@ -4,21 +4,23 @@ import * as github from '@actions/github'
 
 function getCurrentBranch(): string {
   const context = github.context
-  const { payload } = context
+  const { eventName, payload } = context
 
-  core.info(`FIXME: ${context.eventName}, ${context.action}`)
+  let result = ''
 
-  if (payload.pull_request) {
-    return payload.pull_request.head.ref as string
+  if (eventName === 'push') {
+    result = payload.ref
+  } else if (eventName === 'pull_request' && payload.pull_request) {
+    result = payload.pull_request.head.ref
   }
-  if (payload.ref) {
-    return payload.ref
+  if (!result) {
+    throw new Error(
+      `I don't know how to find the current branch in payload: ${JSON.stringify(
+        context.payload,
+      )}`,
+    )
   }
-  throw new Error(
-    `I don't know how to find the current branch in payload: ${JSON.stringify(
-      context.payload,
-    )}`,
-  )
+  return result
 }
 
 async function run(): Promise<void> {
